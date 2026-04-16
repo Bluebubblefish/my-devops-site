@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>留言板</title>
+</head>
+<body>
+  <h1>傻瓜留言板 😄</h1>
+
+  <input id="inputBox" />
+  <button onclick="addMessage()">提交</button>
+
+  <ul id="list"></ul>
+
+  <script>
+    window.onload = function() {
+      const saved = JSON.parse(localStorage.getItem("messages")) || [];
+      saved.forEach(addToPage);
+    };
+
+    function addMessage() {
+      const input = document.getElementById("inputBox");
+      const value = input.value.trim();
+      if (!value) return;
+
+      let messages = JSON.parse(localStorage.getItem("messages")) || [];
+      messages.push(value);
+      localStorage.setItem("messages", JSON.stringify(messages));
+
+      addToPage(value);
+      input.value = "";
+    }
+
+    function addToPage(text) {
+      const li = document.createElement("li");
+      li.textContent = text;
+      document.getElementById("list").appendChild(li);
+    }
+  </script>
+</body>
+</html>
