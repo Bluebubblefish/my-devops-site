@@ -11,30 +11,32 @@
 
   <ul id="list"></ul>
 
-  <script>
-    window.onload = function() {
-      const saved = JSON.parse(localStorage.getItem("messages")) || [];
-      saved.forEach(addToPage);
-    };
+ <script>
+  const STORAGE_KEY = "devops-project-messages";
 
-    function addMessage() {
-      const input = document.getElementById("inputBox");
-      const value = input.value.trim();
-      if (!value) return;
+  window.onload = function() {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    saved.forEach(addToPage);
+  };
 
-      let messages = JSON.parse(localStorage.getItem("messages")) || [];
-      messages.push(value);
-      localStorage.setItem("messages", JSON.stringify(messages));
+  function addMessage() {
+    const input = document.getElementById("inputBox");
+    const value = input.value.trim();
+    if (!value) return;
 
-      addToPage(value);
-      input.value = "";
-    }
+    let messages = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    messages.push(value);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
 
-    function addToPage(text) {
-      const li = document.createElement("li");
-      li.textContent = text;
-      document.getElementById("list").appendChild(li);
-    }
-  </script>
+    addToPage(value);
+    input.value = "";
+  }
+
+  function addToPage(text) {
+    const li = document.createElement("li");
+    li.textContent = text;
+    document.getElementById("list").appendChild(li);
+  }
+</script>
 </body>
 </html>
